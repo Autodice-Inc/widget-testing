@@ -28,8 +28,14 @@ function localWidget(): Plugin {
 }
 
 // The dealer pages copied by scripts/mirror-page.mjs, at the dealer's own paths. / only sends
-// visitors on to /en.
-const PAGES = ['index.html', 'en/index.html', 'fr/index.html'].filter((page) => existsSync(page))
+// visitors on to /en. The Spinelli Toyota Lachine look-alike sits under /toyota.
+const PAGES = [
+  'index.html',
+  'en/index.html',
+  'fr/index.html',
+  'toyota/en/index.html',
+  'toyota/fr/index.html',
+].filter((page) => existsSync(page))
 
 // https://vite.dev/config/
 export default defineConfig({

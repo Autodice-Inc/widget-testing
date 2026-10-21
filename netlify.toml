@@ -8,3 +8,10 @@
   to = "/en/"
   status = 302
   force = true
+
+# The Spinelli Toyota Lachine look-alike, next to the Nissan Pointe-Claire one.
+[[redirects]]
+  from = "/toyota"
+  to = "/toyota/en/"
+  status = 302
+  force = true

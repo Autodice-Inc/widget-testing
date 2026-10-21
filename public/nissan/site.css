@@ -1,0 +1,937 @@
+/* A look-alike of Spinelli Nissan Pointe-Claire's home page (spinellinissan.com), built for the
+   Miles demo with the dealership's approval. Colours and fonts are theirs: Nissan red, their
+   near-black bars, the Nissan Primary faces. */
+
+@font-face {
+  font-family: 'Nissan Primary';
+  src: url('/nissan/fonts/nissan-brand-light.woff2') format('woff2'),
+    url('/nissan/fonts/nissan-brand-light.woff') format('woff');
+  font-weight: 300;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Nissan Primary';
+  src: url('/nissan/fonts/nissan-brand-regular.woff2') format('woff2'),
+    url('/nissan/fonts/nissan-brand-regular.woff') format('woff');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Nissan Primary';
+  src: url('/nissan/fonts/nissan-brand-italic.woff2') format('woff2'),
+    url('/nissan/fonts/nissan-brand-italic.woff') format('woff');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Nissan Primary';
+  src: url('/nissan/fonts/nissan-brand-bold.woff2') format('woff2'),
+    url('/nissan/fonts/nissan-brand-bold.woff') format('woff');
+  font-weight: 700;
+  font-display: swap;
+}
+
+:root {
+  --red: #c3002f;
+  --red-dark: #a30027;
+  --ink: #16181f;
+  --navy: #050a23;
+  --text: #333;
+  --muted: #555;
+  --soft: #aaa;
+  --line: #d1d1d1;
+  --panel: #f2f2f2;
+  --page: #fff;
+  --gutter: 28px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--text);
+  font-family: 'Nissan Primary', Verdana, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+}
+
+.wrap {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* Top bar */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  height: 40px;
+  background: var(--ink);
+  color: #fff;
+  font-size: 14px;
+}
+.topbar__group {
+  display: flex;
+}
+.topbar__transaction {
+  display: flex;
+  align-items: center;
+  padding: 0 22px;
+  background: var(--red);
+  font-weight: 700;
+}
+.topbar__icon {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  background: #d8334f;
+  border-left: 1px solid rgba(255, 255, 255, 0.25);
+}
+.topbar__icon img {
+  width: 22px;
+  height: 22px;
+  filter: brightness(0) invert(1);
+}
+.topbar__login {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 28px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+.topbar__account {
+  display: flex;
+  align-items: center;
+  padding: 0 22px;
+  background: var(--red);
+}
+
+/* Header */
+.header {
+  position: relative;
+  z-index: 5;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+.header__main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding-top: 18px;
+  padding-bottom: 6px;
+}
+.brand img {
+  width: 384px;
+  height: auto;
+}
+.brand__tagline {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 15px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.header__contact {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.contact-lines {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.75;
+  text-align: right;
+}
+.contact-lines strong {
+  color: var(--text);
+}
+.contact-lines .phone {
+  color: var(--red);
+  text-decoration: underline;
+}
+.contact-lines .pin {
+  display: inline-block;
+  width: 14px;
+  height: 18px;
+  margin-right: 8px;
+  vertical-align: -3px;
+  color: var(--red);
+}
+.contact-lines .reviews svg {
+  width: 15px;
+  height: 15px;
+  margin-left: 4px;
+  vertical-align: -2px;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 28px;
+  height: 52px;
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 18px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.btn--black {
+  background: #000;
+  color: #fff;
+}
+.btn--red {
+  background: var(--red);
+  color: #fff;
+}
+.btn--red:hover {
+  background: var(--red-dark);
+}
+.lang {
+  display: flex;
+  font-size: 20px;
+}
+.lang a {
+  padding: 0 6px;
+  line-height: 30px;
+  background: #000;
+  color: #fff;
+  text-decoration: underline;
+}
+.lang a[aria-current='page'] {
+  background: var(--red);
+  text-decoration: none;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+.nav a {
+  padding: 8px 0;
+  color: var(--text);
+  font-size: 16px;
+}
+.nav a:hover {
+  color: var(--red);
+}
+
+.mobile-actions {
+  display: none;
+}
+
+/* Hero slider */
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: #8f1526;
+}
+.hero__track {
+  display: flex;
+  transition: transform 0.6s ease;
+}
+.hero__slide {
+  position: relative;
+  flex: 0 0 100%;
+}
+.hero__slide img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1920 / 650;
+  object-fit: cover;
+}
+.hero__overlay {
+  position: absolute;
+  top: 8%;
+  left: 4%;
+  color: #fff;
+}
+.hero__overlay h2 {
+  margin: 0 0 22px;
+  font-size: clamp(22px, 2.8vw, 40px);
+  line-height: 1.1;
+}
+/* On a slide whose picture has no text of its own and a light sky behind the words. */
+.hero__overlay--dark {
+  top: 14%;
+  left: 6%;
+  max-width: 40%;
+  color: var(--ink);
+}
+.hero__overlay--dark h2 {
+  margin-bottom: 12px;
+}
+.hero__overlay p {
+  margin: 0 0 22px;
+  font-size: clamp(14px, 1.4vw, 20px);
+}
+.hero__arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  width: 44px;
+  height: 96px;
+  margin-top: -48px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #fff;
+  cursor: pointer;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.45));
+}
+.hero__arrow--prev {
+  left: 36px;
+}
+.hero__arrow--next {
+  right: 36px;
+}
+.hero__arrow svg {
+  width: 100%;
+  height: 100%;
+}
+.dots {
+  position: absolute;
+  bottom: 16px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.dots button {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+.dots button[aria-current='true'] {
+  background: #fff;
+}
+
+/* Pre-qualification banner (their image, button included) */
+.prequal {
+  display: block;
+  background: var(--navy);
+}
+.prequal img {
+  width: 100%;
+  max-width: 2600px;
+  height: auto;
+  margin: 0 auto;
+}
+
+/* Featured pre-owned vehicles */
+.section {
+  padding: 56px 0;
+}
+.section__title {
+  margin: 0 0 40px;
+  color: var(--text);
+  font-size: clamp(28px, 3vw, 44px);
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: center;
+}
+.carousel {
+  position: relative;
+}
+.carousel__track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - 3 * 20px) / 4);
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+}
+.carousel__track::-webkit-scrollbar {
+  display: none;
+}
+.carousel__arrow {
+  position: absolute;
+  top: 38%;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
+  color: var(--text);
+  cursor: pointer;
+}
+.carousel__arrow svg {
+  width: 18px;
+  height: 18px;
+}
+.carousel__arrow--prev {
+  left: -14px;
+}
+.carousel__arrow--next {
+  right: -14px;
+}
+.carousel__dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 28px;
+}
+.carousel__dots button {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: 1px solid var(--soft);
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+.carousel__dots button[aria-current='true'] {
+  background: var(--red);
+  border-color: var(--red);
+}
+
+.car {
+  display: flex;
+  flex-direction: column;
+  scroll-snap-align: start;
+  border: 1px solid #e6e6e6;
+  background: #fff;
+}
+.car__media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: var(--panel);
+}
+.car__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.car__rebate {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.88);
+  color: var(--muted);
+  font-size: 14px;
+}
+.car__rebate svg {
+  width: 14px;
+  height: 14px;
+}
+.car__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 18px 14px 16px;
+}
+.car__label {
+  align-self: flex-end;
+  color: var(--soft);
+  font-size: 14px;
+}
+.car__ids {
+  margin: 8px 0 12px;
+  color: var(--soft);
+  font-size: 12px;
+  line-height: 1.4;
+  text-align: right;
+}
+.car__make {
+  margin: 0;
+  color: var(--muted);
+  font-size: 16px;
+}
+.car__name {
+  margin: 0;
+  color: var(--text);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.15;
+}
+.car__trim {
+  margin: 4px 0 12px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.car__specs {
+  display: flex;
+  gap: 18px;
+  margin: 0 0 16px;
+  padding: 10px 0;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  color: var(--muted);
+  font-size: 14px;
+}
+.car__specs span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.car__specs svg {
+  width: 16px;
+  height: 16px;
+  color: var(--soft);
+}
+.car__price {
+  margin-top: auto;
+}
+.car__price-label {
+  color: var(--muted);
+  font-size: 14px;
+}
+.car__was {
+  color: var(--soft);
+  font-size: 15px;
+  text-decoration: line-through;
+}
+.car__amount {
+  color: var(--text);
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+.car__fine {
+  margin: 4px 0 14px;
+  color: var(--soft);
+  font-size: 11px;
+  line-height: 1.35;
+}
+.car .btn {
+  width: 100%;
+  height: 46px;
+  font-size: 16px;
+}
+
+/* Inventory shortcuts */
+.instances {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 48px;
+}
+.instance {
+  padding: 26px 28px;
+  background: var(--panel);
+}
+.instance__title {
+  margin: 0 0 6px;
+  color: var(--text);
+  font-size: 22px;
+  font-weight: 700;
+}
+.instance__link {
+  color: var(--red);
+  font-size: 15px;
+}
+.instance__link::after {
+  content: ' \2192';
+}
+
+/* Why Spinelli: their pictograms are white, made for a dark band. */
+.band {
+  padding: 64px 0;
+  background: var(--ink);
+  color: #fff;
+}
+.band .reason p,
+.band .reason ul {
+  color: #c9cad1;
+}
+.reasons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+.reason {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.reason img {
+  height: 84px;
+  width: auto;
+  margin-bottom: 22px;
+}
+.reason h3 {
+  margin: 0 0 10px;
+  font-size: 22px;
+  line-height: 1.2;
+}
+.reason p,
+.reason ul {
+  margin: 0 0 22px;
+  color: var(--muted);
+  font-size: 15px;
+}
+.reason ul {
+  padding: 0;
+  list-style: none;
+}
+.reason .btn {
+  margin-top: auto;
+  height: 46px;
+  font-size: 15px;
+}
+
+/* About */
+.about {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+.about h1 {
+  margin: 0 0 18px;
+  font-size: clamp(28px, 3vw, 40px);
+  line-height: 1.15;
+}
+.about__text {
+  color: var(--muted);
+  font-size: 15px;
+}
+.about__text p {
+  margin: 0 0 14px;
+}
+.about__text a {
+  color: var(--red);
+  text-decoration: underline;
+}
+.about__text strong {
+  color: var(--text);
+}
+.about__more {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--red);
+  cursor: pointer;
+  font-size: 15px;
+  text-decoration: underline;
+}
+.about__text:not(.is-open) .about__extra {
+  display: none;
+}
+/* The tag's height would otherwise stay at 405px as max-width narrows it. */
+.about img {
+  height: auto;
+}
+
+/* Newsletter */
+.newsletter {
+  padding: 44px 0;
+  background: var(--ink);
+  color: #fff;
+}
+.newsletter__inner {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 28px;
+  align-items: center;
+}
+.newsletter h2 {
+  margin: 0;
+  font-size: 26px;
+  line-height: 1.2;
+}
+.newsletter__form {
+  display: flex;
+  gap: 12px;
+}
+.newsletter__form input {
+  flex: 1;
+  min-width: 0;
+  height: 52px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 4px;
+  font: inherit;
+}
+.newsletter__fine {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--soft);
+  font-size: 13px;
+}
+.newsletter__fine label {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin-bottom: 6px;
+  color: #ddd;
+}
+.newsletter__fine a {
+  text-decoration: underline;
+}
+
+/* Footer */
+.footer {
+  padding: 56px 0 0;
+  background: #0d0f15;
+  color: #cfcfd4;
+  font-size: 15px;
+}
+.footer__cols {
+  display: grid;
+  grid-template-columns: 1.1fr 1.3fr 1fr 1fr;
+  gap: 40px;
+  padding-bottom: 48px;
+}
+.footer h3 {
+  margin: 0 0 16px;
+  color: #fff;
+  font-size: 19px;
+}
+.footer p {
+  margin: 0 0 10px;
+}
+.footer ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.footer li {
+  margin-bottom: 8px;
+}
+.footer a:hover {
+  color: #fff;
+}
+.footer .btn {
+  height: 44px;
+  margin-top: 8px;
+  font-size: 15px;
+}
+.hours__tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+.hours__tabs button {
+  padding: 6px 14px;
+  border: 1px solid #3a3d48;
+  background: transparent;
+  color: #cfcfd4;
+  cursor: pointer;
+}
+.hours__tabs button[aria-selected='true'] {
+  background: var(--red);
+  border-color: var(--red);
+  color: #fff;
+}
+.hours table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.hours td {
+  padding: 4px 0;
+  border-bottom: 1px solid #23262f;
+}
+.hours td + td {
+  text-align: right;
+}
+.footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  padding: 18px 0;
+  border-top: 1px solid #23262f;
+  color: #8d8f99;
+  font-size: 13px;
+}
+
+/* Tablet */
+@media (max-width: 1100px) {
+  .header__main {
+    flex-wrap: wrap;
+  }
+  .brand img {
+    width: 300px;
+  }
+  .nav {
+    flex-wrap: wrap;
+    gap: 6px 22px;
+    justify-content: flex-start;
+  }
+  .carousel__track {
+    grid-auto-columns: calc((100% - 2 * 20px) / 3);
+  }
+  .footer__cols {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Phone */
+@media (max-width: 760px) {
+  :root {
+    --gutter: 16px;
+  }
+  .topbar {
+    font-size: 13px;
+  }
+  .topbar__icon {
+    display: none;
+  }
+  .topbar__transaction,
+  .topbar__account {
+    padding: 0 14px;
+  }
+  .topbar__login {
+    padding: 0 14px;
+  }
+  .header__main {
+    flex-wrap: nowrap;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+  .brand img {
+    width: 150px;
+  }
+  .brand__tagline,
+  .header__contact {
+    display: none;
+  }
+  .mobile-actions {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    color: var(--soft);
+  }
+  .mobile-actions button,
+  .mobile-actions a {
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+  }
+  .mobile-actions svg {
+    width: 28px;
+    height: 28px;
+  }
+  .mobile-actions .menu-toggle svg {
+    width: 40px;
+    height: 32px;
+  }
+  .nav {
+    display: none;
+    flex-direction: column;
+    gap: 0;
+    padding-top: 0;
+  }
+  .nav.is-open {
+    display: flex;
+  }
+  .nav a {
+    padding: 12px 0;
+    border-top: 1px solid #eee;
+  }
+  .hero__arrow {
+    width: 26px;
+    height: 56px;
+    margin-top: -28px;
+  }
+  .hero__arrow--prev {
+    left: 8px;
+  }
+  .hero__arrow--next {
+    right: 8px;
+  }
+  .hero__overlay {
+    top: 6%;
+  }
+  .hero__overlay h2 {
+    margin-bottom: 10px;
+  }
+  .hero__overlay .btn {
+    height: 34px;
+    padding: 0 14px;
+    font-size: 13px;
+  }
+  .hero__overlay--dark {
+    top: 8%;
+    max-width: 55%;
+  }
+  .hero__overlay--dark p {
+    display: none;
+  }
+  .dots {
+    bottom: 8px;
+  }
+  /* The banner's icon, text and button sit between 18% and 73% of its width. */
+  .prequal img {
+    width: 182%;
+    max-width: none;
+    margin-left: -32%;
+  }
+  .prequal {
+    overflow: hidden;
+  }
+  .section {
+    padding: 40px 0;
+  }
+  .carousel__track {
+    grid-auto-columns: 86%;
+    gap: 14px;
+  }
+  .carousel__arrow {
+    display: none;
+  }
+  .instances,
+  .reasons,
+  .about,
+  .newsletter__inner,
+  .footer__cols {
+    grid-template-columns: 1fr;
+  }
+  .reasons {
+    gap: 44px;
+  }
+  .band {
+    padding: 48px 0;
+  }
+  .newsletter__form {
+    flex-direction: column;
+  }
+}
