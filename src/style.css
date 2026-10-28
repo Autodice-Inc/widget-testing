@@ -52,6 +52,35 @@ p {
   font-weight: 600;
 }
 
+.bar-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.language {
+  display: inline-flex;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.language button {
+  padding: 4px 10px;
+  border: 0;
+  background: var(--color-surface);
+  color: var(--color-muted);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.language button[aria-pressed='true'] {
+  background: var(--color-accent);
+  color: #fff;
+}
+
 .card {
   padding: 24px;
   border: 1px solid var(--color-border);
