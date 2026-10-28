@@ -1,32 +1,36 @@
-# React + TypeScript + Vite
+# Try Miles
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A one-page app where a dealership logs in with its AutoDice account and chats with its own Miles
+widget. Login goes through the AutoDice API (cookies), and the page then loads the widget whose id
+is on that account.
 
-Currently, two official plugins are available:
+## Run locally
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Needs the API on :3000 and the widget's dev server on :4545 (`npm run dev:frame` in
+`autodice/widget`). The API's `.env` must have `WIDGET_TEST_ORIGINS=localhost:5173`, or every widget
+rejects this page.
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```sh
+yarn
+yarn dev   # http://localhost:5173
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+The dev server proxies `/v1` to the API, so no CORS entry is needed locally. `API_PROXY_TARGET`
+points the proxy at another API.
+
+## Build
+
+`yarn build` writes a static site to `dist/`. It needs both variables (it fails without them):
+
+| Variable | Example | What it is |
+| --- | --- | --- |
+| `VITE_API_BASE` | `https://api.example.com/v1` | The API's base URL, `/v1` included |
+| `VITE_WIDGET_LOADER` | `https://cdn.example.com/widget.js` | The widget's embed script, from the same environment as the API |
+
+The API of that environment needs:
+
+- the app's origin in `CORS_ORIGINS`, since login and `GET /users` are credentialed cross-origin calls;
+- the app's domain in `WIDGET_TEST_ORIGINS` (comma-separated, e.g. `try.example.com`), so every
+  dealership's widget accepts this page without the dealership whitelisting it;
+The app has to be on the same site as the API (e.g. both subdomains of one domain): the auth
+cookies are `SameSite=Strict`, so a browser won't send them from another site.

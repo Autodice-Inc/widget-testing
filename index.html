@@ -1,15 +1,16 @@
 <!doctype html>
-<!-- The demo's pages are look-alikes of Spinelli Nissan Pointe-Claire's, at their paths: /en and /fr
-     (Spinelli Toyota Lachine's are under /toyota). Netlify redirects / to /en (netlify.toml); this
-     covers `yarn dev`. -->
-<html lang="en">
+<!-- No lang attribute on purpose: the widget starts in the page's language when the page declares
+     one, and otherwise in the dealership's own Language setting, which is what a dealership trying
+     its widget expects. -->
+<html>
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex, nofollow" />
-    <meta http-equiv="refresh" content="0; url=/en/" />
-    <title>Miles demo</title>
+    <title>Try Miles</title>
   </head>
   <body>
-    <a href="/en/">Open the demo</a>
+    <main id="app"></main>
+    <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
