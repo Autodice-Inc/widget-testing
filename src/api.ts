@@ -7,9 +7,37 @@ export type CurrentUser = {
   widgetConfig?: {
     widgetId?: string
     enabled?: boolean
-    branding?: { dealershipName?: string }
+    branding?: { dealershipName?: string; logo?: string | null }
   } | null
 }
+
+export type Vehicle = {
+  stockNumber: string
+  year?: number | null
+  make: string
+  model: string
+  trim?: string | null
+  price?: number | null
+  mileage?: number | null
+  condition?: string | null
+  photos?: string[]
+}
+
+export type DistanceUnit = 'km' | 'mi'
+
+export type SaleType = 'new' | 'used'
+
+export type VehiclePage = {
+  items: Vehicle[]
+  totalItems: number
+  currentPage: number
+  totalPages: number
+  /** What the whole stock has, whatever the page's filters. */
+  saleTypes: SaleType[]
+  distanceUnit: DistanceUnit
+}
+
+export type StockQuery = { page: number; search: string; saleType: SaleType | null }
 
 export class ApiError extends Error {
   readonly status: number
@@ -48,6 +76,14 @@ export async function getCurrentUser(): Promise<CurrentUser | null> {
   }
 
   return call<CurrentUser>('/users')
+}
+
+/** A page of the vehicles Miles knows for the dealership. */
+export function getVehiclePage({ page, search, saleType }: StockQuery) {
+  const params = new URLSearchParams({ page: String(page) })
+  if (search) params.set('search', search)
+  if (saleType) params.set('saleType', saleType)
+  return call<VehiclePage>(`/users/widget-config/inventory/vehicles?${params}`)
 }
 
 export function login(email: string, password: string) {
