@@ -13,18 +13,13 @@ import {
   type VehiclePage,
 } from './api'
 import { initialLanguage, storeLanguage, TEXT, type Language, type TextKey } from './i18n'
-
-// The widget's embed script. Locally it's the widget's dev server (`npm run dev:frame` in
-// autodice/widget), whose loader is TypeScript served as an ES module.
-const WIDGET_LOADER = import.meta.env.VITE_WIDGET_LOADER || 'http://localhost:4545/src/loader/index.ts'
+import { embedWidget, widgetStateOf, type WidgetState } from './widget'
 
 declare global {
   interface Window {
     Miles?: { open: () => void }
   }
 }
-
-type WidgetState = { kind: 'ready'; widgetId: string } | { kind: 'not-dealership' | 'no-widget' | 'disabled' }
 
 const STATE_TEXT: Record<Exclude<WidgetState['kind'], 'ready'>, TextKey> = {
   'not-dealership': 'notDealership',
@@ -126,26 +121,8 @@ logoutButton.addEventListener('click', async () => {
   location.reload()
 })
 
-// What the logged-in account can try: only an approved dealership's own widget, while it's on.
-function widgetStateOf(user: CurrentUser): WidgetState {
-  if (user.dealershipStatus !== 'Approved') return { kind: 'not-dealership' }
-  const config = user.widgetConfig
-  if (!config?.widgetId) return { kind: 'no-widget' }
-  if (!config.enabled) return { kind: 'disabled' }
-  return { kind: 'ready', widgetId: config.widgetId }
-}
-
 function dealershipNameOf(user: CurrentUser) {
   return user.widgetConfig?.branding?.dealershipName?.trim() || user.fullName?.trim() || ''
-}
-
-function embedWidget(widgetId: string) {
-  const script = document.createElement('script')
-  script.src = WIDGET_LOADER
-  if (WIDGET_LOADER.endsWith('.ts')) script.type = 'module'
-  // The loader finds its own tag by this attribute, also when it's added after the page loaded.
-  script.dataset.widgetId = widgetId
-  document.body.append(script)
 }
 
 function element(tag: string, className = '', text = '') {
@@ -430,11 +407,20 @@ function vehicleCard(vehicle: Vehicle, unit: DistanceUnit) {
   return card
 }
 
+// A page of this site that sent the visitor here to log in (the Spinelli look-alike), to go back to
+// once they are. Only a path on this site, never another one.
+function returnPath() {
+  const next = new URLSearchParams(location.search).get('next')
+  return next?.startsWith('/') && !next.startsWith('//') ? next : null
+}
+
 async function start() {
   showMessage('loading')
   try {
     const user = await getCurrentUser()
-    if (user) showAccount(user)
+    const next = returnPath()
+    if (user && next) location.replace(next)
+    else if (user) showAccount(user)
     else showLogin()
   } catch (error) {
     // Logged in, but the API won't hand the account over (a blocked or unverified account, say).

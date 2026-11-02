@@ -4,6 +4,14 @@ A one-page app where a dealership logs in with its AutoDice account and chats wi
 widget. Login goes through the AutoDice API (cookies), and the page then loads the widget whose id
 is on that account.
 
+## Spinelli Nissan look-alike
+
+`/spinelli/en/index.html` and `/spinelli/fr/index.html` look like Spinelli Nissan Pointe-Claire's
+home page (with the dealership's approval) and load the same logged-in widget, with the
+dealership's own used cars in the featured row. A visitor who isn't logged in gets a link to the
+login here, which sends them back once they are. Use the full `index.html` path: the deployed
+site's CDN only maps `/` to an index file, and any other unknown path shows this login page.
+
 ## Run locally
 
 Needs the API on :3000 and the widget's dev server on :4545 (`npm run dev:frame` in
